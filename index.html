@@ -165,6 +165,14 @@
     </div>
   </div>
 
+  <div class="options-row" style="margin-bottom:6px;">
+    <label class="option-pill checked" id="pillModelU2" onclick="selectModel('universal-2')">
+      <span class="dot"></span> Universal-2 <span style="font-size:9px;opacity:0.6;margin-left:3px">fast</span>
+    </label>
+    <label class="option-pill" id="pillModelU3" onclick="selectModel('universal-3-pro')">
+      <span class="dot"></span> Universal-3-Pro <span style="font-size:9px;opacity:0.6;margin-left:3px">most accurate</span>
+    </label>
+  </div>
   <div class="options-row">
     <label class="option-pill" id="pillSpeakers">
       <input type="checkbox" id="optSpeakers" onchange="togglePill('pillSpeakers','optSpeakers')" />
@@ -223,6 +231,13 @@
 <script>
 let transcriptResult = null;
 let currentView = 'plain';
+let selectedModel = 'universal-2';
+
+function selectModel(model) {
+  selectedModel = model;
+  document.getElementById('pillModelU2').classList.toggle('checked', model === 'universal-2');
+  document.getElementById('pillModelU3').classList.toggle('checked', model === 'universal-3-pro');
+}
 
 function togglePill(pillId, checkId) {
   const checked = document.getElementById(checkId).checked;
@@ -346,6 +361,7 @@ async function startTranscription() {
       headers: { 'authorization': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         audio_url: url,
+        speech_model: selectedModel,
         speaker_labels: wantSpeakers,
         sentiment_analysis: wantSentiment,
         auto_chapters: wantChapters,
