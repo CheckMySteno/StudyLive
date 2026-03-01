@@ -361,7 +361,7 @@ async function startTranscription() {
       headers: { 'authorization': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         audio_url: url,
-        speech_model: selectedModel,
+        speech_models: [selectedModel],
         speaker_labels: wantSpeakers,
         sentiment_analysis: wantSentiment,
         auto_chapters: wantChapters,
